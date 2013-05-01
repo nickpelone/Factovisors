@@ -28,27 +28,46 @@ public class Factovisors {
             try{    
        BufferedReader inputReader = new BufferedReader(new InputStreamReader(System.in));
        String inputLine = inputReader.readLine();
+       if(inputLine.length() != 0){
        
        String [] numbers = inputLine.split(" ");
        list.add(Integer.parseInt(numbers[0]));
        list.add(Integer.parseInt(numbers[1]));
-       int divisor = list.get(it * 2);
-       int divisible = list.get((it * 2) + 1);
-       int divisiblefact = fact(divisible);
-       System.out.println(divisor);
-       System.out.println(divisible);
-       System.out.println(divisiblefact);
+       int factorial_me = list.get(it * 2);
+       int use_me_to_divide = list.get((it * 2) + 1);
+       int divisiblefact = fact(factorial_me);
+       //System.out.println(factorial_me);
+       //System.out.println(use_me_to_divide);
+       //System.out.println(divisiblefact);
        it++;
-       if(inputLine != null){
-       } else {
-                    stop = true;
-                }
-           
+       }
+       else{
+           stop = true;
+       }
        
       }catch (IOException ioe){
           ioe.printStackTrace();
+      }catch (NumberFormatException num){
+          System.exit(0);
       }
     }
+        //we stopped so now we deliver the results:
+        for(int i = 0; i < list.size(); i++){
+            try{
+            //we take each two items in the list and compute
+            int internal_factorial_me = list.get(i * 2);
+            int internal_use_me_to_divide = list.get((i * 2) + 1);
+            int internalDivisFact = fact(internal_factorial_me);
+            if(internalDivisFact % internal_use_me_to_divide == 0){
+                System.out.println(internal_use_me_to_divide + " divides " + internal_factorial_me +"!");
+            }else{
+                System.out.println(internal_use_me_to_divide + " does not divide " + internal_factorial_me + "!");
+            }
+            }catch (IndexOutOfBoundsException indexout){
+                //cheat
+              System.exit(0);  
+            }
+        }
 }
         static int fact(int n) {
 	
